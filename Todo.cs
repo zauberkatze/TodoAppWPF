@@ -1,8 +1,38 @@
-class Todo
+using System.ComponentModel;
+
+class Todo : INotifyPropertyChanged
 {
     public int Id;
-    public string? Titel;
-    public bool Erledigt;
+    private string? titel;
+    private bool erledigt;
+    
+    public string? Titel
+    {
+        get => titel;
+        set
+        {
+            if (titel != value)
+            {
+                titel = value;
+                OnPropertyChanged(nameof(Titel));
+            }
+        }
+    }
+    
+    public bool Erledigt
+    {
+        get => erledigt;
+        set
+        {
+            if (erledigt != value)
+            {
+                erledigt = value;
+                OnPropertyChanged(nameof(Erledigt));
+            }
+        }
+    }
+
+    public event PropertyChangedEventHandler? PropertyChanged;
 
     public Todo() { }
 
@@ -13,9 +43,14 @@ class Todo
         Erledigt = false;
     }
 
+    protected void OnPropertyChanged(string propertyName)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
+
     public void Anzeigen()
     {
-        string status = Erledigt ? "✅" : "❌";
+        string status = Erledigt ? "Ja" : "Nein";
         Console.WriteLine($"{Id}. {status} {Titel}");
     }
 }

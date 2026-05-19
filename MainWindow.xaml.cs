@@ -1,15 +1,18 @@
-﻿using System.Windows;
+﻿using System.Collections.ObjectModel;
+using System.Windows;
 
 namespace TodoAppWPF
 {
     public partial class MainWindow : Window
     {
         private TodoService service = new TodoService();
+        private ObservableCollection<Todo> todoListe = new ObservableCollection<Todo>();
 
         public MainWindow()
         {
             InitializeComponent();
             service.Laden();
+            TodoListe.ItemsSource = todoListe;
             AktualisiereListe();
         }
 
@@ -30,11 +33,19 @@ namespace TodoAppWPF
 
         private void AktualisiereListe()
         {
-            TodoListe.Items.Clear();
+            todoListe.Clear();
             foreach (Todo todo in service.GetAlle())
             {
-                string status = todo.Erledigt ? "✅" : "❌";
-                TodoListe.Items.Add($"{todo.Id}. {status} {todo.Titel}");
+                todoListe.Add(todo);
+            }
+        }
+
+        private void ListBoxItem_PreviewMouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            // Speichern wenn der Benutzer einen CheckBox klickt
+            if (e.OriginalSource is System.Windows.Controls.CheckBox)
+            {
+                service.Speichern();
             }
         }
     }

@@ -55,6 +55,33 @@
                  Background="#313244"
                  BorderThickness="0"
                  Foreground="#CDD6F4"
-                 FontSize="14"/>
+                 FontSize="14">
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                    <EventSetter Event="PreviewMouseLeftButtonUp" Handler="ListBoxItem_PreviewMouseLeftButtonUp"/>
+                </Style>
+            </ListBox.ItemContainerStyle>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Border Padding="10,5" BorderThickness="0,0,0,1" BorderBrush="#45475A">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            
+                            <CheckBox Grid.Column="0"
+                                      IsChecked="{Binding Erledigt, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                      Margin="0,0,10,0"
+                                      VerticalAlignment="Center"/>
+                            
+                            <TextBlock Grid.Column="1"
+                                       Text="{Binding Titel}"
+                                       VerticalAlignment="Center"/>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
     </Grid>
 </Window>
