@@ -5,6 +5,11 @@ class TodoService
 {
     private List<Todo> todos = new List<Todo>();
     private string dateipfad = "todos.json";
+    
+    public List<Todo> GetAlle()
+    {
+        return todos;
+    }
 
     // Laden wenn Programm startet
     public void Laden()
