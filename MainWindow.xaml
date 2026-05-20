@@ -4,8 +4,9 @@
         Title="To-Do Liste" Height="600" Width="400"
         Background="#1E1E2E">
 
-    <Grid Margin="20">
+        <Grid Margin="20">
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -49,9 +50,33 @@
                     Click="HinzufügenButton_Click"/>
         </Grid>
 
+            <!-- Toolbar: Speichern / Löschen -->
+            <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,20">
+                <Button x:Name="SpeichernButton"
+                    Content="Speichern"
+                    Background="#A6E3A1"
+                    Foreground="#1E1E2E"
+                    FontWeight="Bold"
+                    BorderThickness="0"
+                    Padding="10,6"
+                    Margin="0,0,10,0"
+                    Cursor="Hand"
+                    Click="SpeichernButton_Click"/>
+
+                <Button x:Name="LöschenButton"
+                    Content="Löschen"
+                    Background="#F38BA8"
+                    Foreground="#1E1E2E"
+                    FontWeight="Bold"
+                    BorderThickness="0"
+                    Padding="10,6"
+                    Cursor="Hand"
+                    Click="LöschenButton_Click"/>
+            </StackPanel>
+
         <!-- Todo Liste -->
         <ListBox x:Name="TodoListe"
-                 Grid.Row="2"
+             Grid.Row="3"
                  Background="#313244"
                  BorderThickness="0"
                  Foreground="#CDD6F4"

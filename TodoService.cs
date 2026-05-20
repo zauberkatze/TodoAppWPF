@@ -33,7 +33,6 @@ class TodoService
     {
         int id = todos.Count + 1;
         todos.Add(new Todo(id, titel));
-        Speichern();
         Console.WriteLine("Aufgabe hinzugefügt!");
     }
 
@@ -60,7 +59,6 @@ class TodoService
             if (todo.Id == id)
             {
                 todo.Erledigt = true;
-                Speichern();
                 Console.WriteLine("Aufgabe erledigt!");
                 return;
             }
@@ -76,7 +74,6 @@ class TodoService
             if (todo.Id == id)
             {
                 todos.Remove(todo);
-                Speichern();
                 Console.WriteLine("Aufgabe gelöscht!");
                 return;
             }
