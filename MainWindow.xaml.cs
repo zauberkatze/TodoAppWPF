@@ -15,8 +15,33 @@ namespace TodoAppWPF
             InitializeComponent();
             service.Laden();
             TodoListe.ItemsSource = todoListe;
-            AktualisiereListe();
+            AktualisiereListen();
             this.Closing += MainWindow_Closing;
+        }
+
+        private void NeueListeButton_Click(object sender, RoutedEventArgs e)
+        {
+            string name = ListenNameBox.Text;
+
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                MessageBox.Show("Bitte einen Namen eingeben!");
+                return;
+            }
+
+            service.ListeHinzufügen(name);
+            ListenNameBox.Clear();
+            isDirty = true;
+            AktualisiereListen();
+        }
+
+        private void ListenAuswahl_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            if (ListenAuswahl.SelectedItem is TodoListe selected)
+            {
+                service.SetAktiveListe(selected);
+                AktualisiereTodos();
+            }
         }
 
         private void HinzufügenButton_Click(object sender, RoutedEventArgs e)
@@ -29,13 +54,25 @@ namespace TodoAppWPF
                 return;
             }
 
+            if (service.GetAktiveListe() == null)
+            {
+                MessageBox.Show("Bitte zuerst eine Liste auswählen!");
+                return;
+            }
+
             service.HinzuFügen(titel);
             EingabeBox.Clear();
             isDirty = true;
-            AktualisiereListe();
+            AktualisiereTodos();
         }
 
-        private void AktualisiereListe()
+        private void AktualisiereListen()
+        {
+            ListenAuswahl.ItemsSource = null;
+            ListenAuswahl.ItemsSource = service.GetAlleListen();
+        }
+
+        private void AktualisiereTodos()
         {
             todoListe.Clear();
             foreach (Todo todo in service.GetAlle())
@@ -46,7 +83,6 @@ namespace TodoAppWPF
 
         private void ListBoxItem_PreviewMouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            // Änderungen als ungespeichert markieren, wenn der Benutzer eine CheckBox klickt
             if (e.OriginalSource is System.Windows.Controls.CheckBox)
             {
                 isDirty = true;
@@ -66,11 +102,11 @@ namespace TodoAppWPF
             {
                 service.Löschen(selected.Id);
                 isDirty = true;
-                AktualisiereListe();
+                AktualisiereTodos();
             }
             else
             {
-                MessageBox.Show("Bitte einen Eintrag auswählen, der gelöscht werden soll.", "Löschen", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("Bitte einen Eintrag auswählen.", "Löschen", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
 
@@ -78,8 +114,8 @@ namespace TodoAppWPF
         {
             if (!isDirty) return;
 
-            var result = MessageBox.Show("Sie haben ungespeicherte Änderungen. Möchten Sie speichern?", "Ungespeicherte Änderungen",
-                MessageBoxButton.YesNoCancel, MessageBoxImage.Warning);
+            var result = MessageBox.Show("Sie haben ungespeicherte Änderungen. Möchten Sie speichern?",
+                "Ungespeicherte Änderungen", MessageBoxButton.YesNoCancel, MessageBoxImage.Warning);
 
             if (result == MessageBoxResult.Yes)
             {
@@ -92,7 +128,6 @@ namespace TodoAppWPF
             }
             else
             {
-                // Nein: Änderungen verwerfen — vom Datenträger neu laden, um gespeicherten Zustand wiederherzustellen
                 service.Laden();
             }
         }

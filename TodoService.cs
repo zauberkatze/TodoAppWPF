@@ -3,51 +3,68 @@ using System.IO;
 
 class TodoService
 {
-    private List<Todo> todos = new List<Todo>();
+    private List<TodoListe> listen = new List<TodoListe>();
+    private TodoListe? aktiveListe = null;
     private string dateipfad = "todos.json";
-    
-    public List<Todo> GetAlle()
+
+    public List<TodoListe> GetAlleListen()
     {
-        return todos;
+        return listen;
     }
 
-    // Laden wenn Programm startet
+    public TodoListe? GetAktiveListe()
+    {
+        return aktiveListe;
+    }
+
+    public void SetAktiveListe(TodoListe liste)
+    {
+        aktiveListe = liste;
+    }
+
+    public List<Todo> GetAlle()
+    {
+        return aktiveListe?.Todos ?? new List<Todo>();
+    }
+
+    public void ListeHinzufügen(string name)
+    {
+        listen.Add(new TodoListe { Name = name });
+        Speichern();
+    }
+
     public void Laden()
     {
         if (File.Exists(dateipfad))
         {
             string json = File.ReadAllText(dateipfad);
-            todos = JsonConvert.DeserializeObject<List<Todo>>(json)!;
+            listen = JsonConvert.DeserializeObject<List<TodoListe>>(json)!;
         }
     }
 
-    // Speichern
     public void Speichern()
     {
-        string json = JsonConvert.SerializeObject(todos);
+        string json = JsonConvert.SerializeObject(listen);
         File.WriteAllText(dateipfad, json);
     }
 
-    // Aufgabe hinzufügen
     public void HinzuFügen(string titel)
     {
-        int id = todos.Count + 1;
-        todos.Add(new Todo(id, titel));
-        Console.WriteLine("Aufgabe hinzugefügt!");
+        if (aktiveListe == null) return;
+        int id = aktiveListe.Todos.Count + 1;
+        aktiveListe.Todos.Add(new Todo(id, titel));
     }
 
-    // Aufgabe löschen
     public void Löschen(int id)
     {
-        foreach (Todo todo in todos)
+        if (aktiveListe == null) return;
+        foreach (Todo todo in aktiveListe.Todos)
         {
             if (todo.Id == id)
             {
-                todos.Remove(todo);
-                Console.WriteLine("Aufgabe gelöscht!");
+                aktiveListe.Todos.Remove(todo);
                 return;
             }
         }
-        Console.WriteLine("Aufgabe nicht gefunden!");
     }
 }
