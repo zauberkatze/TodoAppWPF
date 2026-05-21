@@ -2,7 +2,7 @@ using System.ComponentModel;
 
 class Todo : INotifyPropertyChanged
 {
-    public int Id;
+    public int Id {get; set; }
     private string? titel;
     private bool erledigt;
     
@@ -48,9 +48,4 @@ class Todo : INotifyPropertyChanged
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 
-    public void Anzeigen()
-    {
-        string status = Erledigt ? "Ja" : "Nein";
-        Console.WriteLine($"{Id}. {status} {Titel}");
-    }
 }
