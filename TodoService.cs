@@ -36,36 +36,6 @@ class TodoService
         Console.WriteLine("Aufgabe hinzugefügt!");
     }
 
-    // Alle Aufgaben anzeigen
-    public void AlleAnzeigen()
-    {
-        if (todos.Count == 0)
-        {
-            Console.WriteLine("Keine Aufgaben vorhanden.");
-            return;
-        }
-
-        foreach (Todo todo in todos)
-        {
-            todo.Anzeigen();
-        }
-    }
-
-    // Aufgabe als erledigt markieren
-    public void AlsErledigtMarkieren(int id)
-    {
-        foreach (Todo todo in todos)
-        {
-            if (todo.Id == id)
-            {
-                todo.Erledigt = true;
-                Console.WriteLine("Aufgabe erledigt!");
-                return;
-            }
-        }
-        Console.WriteLine("Aufgabe nicht gefunden!");
-    }
-
     // Aufgabe löschen
     public void Löschen(int id)
     {
