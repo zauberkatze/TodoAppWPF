@@ -35,9 +35,9 @@ class TodoService
 
     public void Laden()
     {
-        if (File.Exists(dateipfad))
+        if (File.Exists(DefaultDateipfad))
         {
-            string json = File.ReadAllText(dateipfad);
+            string json = File.ReadAllText(DefaultDateipfad);
             listen = JsonConvert.DeserializeObject<List<TodoListe>>(json)!;
         }
     }
@@ -45,7 +45,7 @@ class TodoService
     public void Speichern()
     {
         string json = JsonConvert.SerializeObject(listen);
-        File.WriteAllText(dateipfad, json);
+        File.WriteAllText(DefaultDateipfad, json);
     }
 
     public void HinzuFügen(string titel)
