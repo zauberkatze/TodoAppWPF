@@ -6,6 +6,21 @@
         Width="500"
         Background="#1E1E2E">
 
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="styles/Buttons.xaml"/>
+                <ResourceDictionary Source="styles/Controls.xaml"/>
+                <ResourceDictionary Source="styles/TextStyles.xaml"/>
+                <ResourceDictionary Source="styles/Templates.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+            <Style x:Key="TodoListBoxItemStyle" TargetType="ListBoxItem">
+                <EventSetter Event="PreviewMouseLeftButtonUp" Handler="ListBoxItem_PreviewMouseLeftButtonUp"/>
+            </Style>
+        </ResourceDictionary>
+    </Window.Resources>
+
     <Grid Margin="20">
 
         <Grid.RowDefinitions>
@@ -20,10 +35,7 @@
         <!-- Titel -->
         <TextBlock Grid.Row="0"
                    Text="Meine To-Do Listen"
-                   FontSize="24"
-                   FontWeight="Bold"
-                   Foreground="#CDD6F4"
-                   Margin="0,0,0,20"/>
+                   Style="{StaticResource TitleTextBlockStyle}"/>
 
         <!-- Neue Liste erstellen -->
         <Grid Grid.Row="1"
@@ -36,34 +48,19 @@
 
             <TextBox x:Name="ListenNameBox"
                      Grid.Column="0"
-                     Background="#313244"
-                     Foreground="#CDD6F4"
-                     CaretBrush="#CDD6F4"
-                     BorderThickness="0"
-                     Padding="10"
-                     FontSize="14"
+                     Style="{StaticResource InputTextBoxStyle}"
                      Margin="0,0,10,0"/>
 
             <Button Grid.Column="1"
                     Content="+ Neue Liste"
-                    Background="#CBA6F7"
-                    Foreground="#1E1E2E"
-                    FontWeight="Bold"
-                    BorderThickness="0"
-                    Padding="15,10"
-                    FontSize="14"
-                    Cursor="Hand"
+                    Style="{StaticResource PrimaryButtonStyle}"
                     Click="NeueListeButton_Click"/>
         </Grid>
 
         <!-- Listen Auswahl -->
         <ComboBox x:Name="ListenAuswahl"
                   Grid.Row="2"
-                  Background="#313244"
-                  Foreground="#CDD6F4"
-                  BorderThickness="0"
-                  Padding="10"
-                  FontSize="14"
+                  Style="{StaticResource InputComboBoxStyle}"
                   Margin="0,0,0,20"
                   DisplayMemberPath="Name"
                   SelectionChanged="ListenAuswahl_SelectionChanged"/>
@@ -79,72 +76,24 @@
 
             <TextBox x:Name="EingabeBox"
                      Grid.Column="0"
-                     Background="#313244"
-                     Foreground="#CDD6F4"
-                     CaretBrush="#CDD6F4"
-                     BorderThickness="0"
-                     Padding="10"
-                     FontSize="14"
+                     Style="{StaticResource InputTextBoxStyle}"
                      Margin="0,0,10,0"/>
 
             <Button x:Name="HinzufügenButton"
                     Grid.Column="1"
                     Content="+ Hinzufügen"
-                    Background="#89B4FA"
-                    Foreground="#1E1E2E"
-                    FontWeight="Bold"
-                    BorderThickness="0"
-                    Padding="15,10"
-                    FontSize="14"
-                    Cursor="Hand"
+                    Style="{StaticResource SecondaryButtonStyle}"
                     Click="HinzufügenButton_Click"/>
+
         </Grid>
 
         <!-- Todo Liste -->
         <ListBox x:Name="TodoListe"
                  Grid.Row="4"
-                 Background="#313244"
-                 BorderThickness="0"
-                 Foreground="#CDD6F4"
-                 FontSize="14">
+                 Style="{StaticResource TodoListBoxStyle}"
+                 ItemContainerStyle="{StaticResource TodoListBoxItemStyle}"
+                 ItemTemplate="{StaticResource TodoItemTemplate}"/>
 
-            <ListBox.ItemContainerStyle>
-                <Style TargetType="ListBoxItem">
-                    <EventSetter Event="PreviewMouseLeftButtonUp"
-                                 Handler="ListBoxItem_PreviewMouseLeftButtonUp"/>
-                </Style>
-            </ListBox.ItemContainerStyle>
-
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-
-                    <Border Padding="10,5"
-                            BorderThickness="0,0,0,1"
-                            BorderBrush="#45475A">
-
-                        <Grid>
-
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-
-                            <CheckBox Grid.Column="0"
-                                      IsChecked="{Binding Erledigt, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                      Margin="0,0,10,0"
-                                      VerticalAlignment="Center"/>
-
-                            <TextBlock Grid.Column="1"
-                                       Text="{Binding Titel}"
-                                       VerticalAlignment="Center"/>
-
-                        </Grid>
-                    </Border>
-
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-
-        </ListBox>
 
         <StackPanel Grid.Row="5"
                     Orientation="Horizontal"
@@ -152,24 +101,12 @@
                     Margin="0,10,0,0">
 
             <Button Content="Speichern"
-                    Background="#A6E3A1"
-                    Foreground="#1E1E2E"
-                    FontWeight="Bold"
-                    BorderThickness="0"
-                    Padding="15,10"
-                    FontSize="14"
-                    Cursor="Hand"
+                    Style="{StaticResource SuccessButtonStyle}"
                     Margin="0,0,10,0"
                     Click="SpeichernButton_Click"/>
 
             <Button Content="Löschen"
-                    Background="#F38BA8"
-                    Foreground="#1E1E2E"
-                    FontWeight="Bold"
-                    BorderThickness="0"
-                    Padding="15,10"
-                    FontSize="14"
-                    Cursor="Hand"
+                    Style="{StaticResource DangerButtonStyle}"
                     Click="LöschenButton_Click"/>
 
         </StackPanel>

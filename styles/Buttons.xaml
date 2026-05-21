@@ -1,0 +1,34 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- Basis Button Style -->
+    <Style x:Key="BaseButtonStyle" TargetType="Button">
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Padding" Value="15,10"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Foreground" Value="#1E1E2E"/>
+    </Style>
+
+    <!-- Primary Button Style (Lila) -->
+    <Style x:Key="PrimaryButtonStyle" TargetType="Button" BasedOn="{StaticResource BaseButtonStyle}">
+        <Setter Property="Background" Value="#CBA6F7"/>
+    </Style>
+
+    <!-- Secondary Button Style (Blau) -->
+    <Style x:Key="SecondaryButtonStyle" TargetType="Button" BasedOn="{StaticResource BaseButtonStyle}">
+        <Setter Property="Background" Value="#89B4FA"/>
+    </Style>
+
+    <!-- Success Button Style (Grün) -->
+    <Style x:Key="SuccessButtonStyle" TargetType="Button" BasedOn="{StaticResource BaseButtonStyle}">
+        <Setter Property="Background" Value="#A6E3A1"/>
+    </Style>
+
+    <!-- Danger Button Style (Rosa) -->
+    <Style x:Key="DangerButtonStyle" TargetType="Button" BasedOn="{StaticResource BaseButtonStyle}">
+        <Setter Property="Background" Value="#F38BA8"/>
+    </Style>
+
+</ResourceDictionary>
