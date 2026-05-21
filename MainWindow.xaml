@@ -2,8 +2,10 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Meine To-Do Listen"
-        Height="600"
-        Width="500"
+        Height="800"
+        Width="700"
+        MinHeight="700"
+        MinWidth="620"
         Background="#1E1E2E">
 
     <Window.Resources>

@@ -5,7 +5,7 @@ class TodoService
 {
     private List<TodoListe> listen = new List<TodoListe>();
     private TodoListe? aktiveListe = null;
-    private string dateipfad = "todos.json";
+    private const string DefaultDateipfad = "todos.json";
 
     public List<TodoListe> GetAlleListen()
     {
