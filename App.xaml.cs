@@ -1,13 +1,24 @@
-﻿using System.Configuration;
-using System.Data;
-using System.Windows;
+﻿using System.Windows;
 
 namespace TodoAppWPF;
 
-/// <summary>
-/// Interaktionslogik für App.xaml
-/// </summary>
 public partial class App : Application
 {
-}
+    public App()
+    {
+        AppDomain.CurrentDomain.UnhandledException += (s, ex) =>
+        {
+            MessageBox.Show(ex.ExceptionObject.ToString(), "Kritischer Fehler");
+        };
+    }
 
+    protected override void OnStartup(StartupEventArgs e)
+    {
+        base.OnStartup(e);
+        DispatcherUnhandledException += (s, ex) =>
+        {
+            MessageBox.Show(ex.Exception.ToString(), "Fehler");
+            ex.Handled = true;
+        };
+    }
+}
