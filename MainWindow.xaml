@@ -56,13 +56,33 @@
         </Grid>
 
         <!-- Listen Auswahl -->
-        <ComboBox x:Name="ListenAuswahl"
-                  Grid.Row="2"
-                  materialDesign:HintAssist.Hint="Liste auswählen..."
-                  Style="{StaticResource MaterialDesignOutlinedComboBox}"
-                  Margin="0,0,0,20"
-                  DisplayMemberPath="Name"
-                  SelectionChanged="ListenAuswahl_SelectionChanged"/>
+        <Grid Grid.Row="2" Margin="0,0,0,20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <ComboBox x:Name="ListenAuswahl"
+                      Grid.Column="0"
+                      materialDesign:HintAssist.Hint="Liste auswählen..."
+                      Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                      DisplayMemberPath="Name"
+                      SelectionChanged="ListenAuswahl_SelectionChanged"/>
+
+            <Button Grid.Column="1"
+                    Margin="10,0,0,0"
+                    Style="{StaticResource MaterialDesignRaisedButton}"
+                    Foreground="White"
+                    materialDesign:ButtonAssist.CornerRadius="4"
+                    Background="{DynamicResource MaterialDesignValidationErrorBrush}"
+                    BorderBrush="{DynamicResource MaterialDesignValidationErrorBrush}"
+                    Click="ListeLöschenButton_Click">
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon Kind="Delete" VerticalAlignment="Center" Margin="0,0,6,0"/>
+                    <TextBlock Text="Liste löschen"/>
+                </StackPanel>
+            </Button>
+        </Grid>
 
         <!-- Eingabe -->
         <Grid Grid.Row="3" Margin="0,0,0,10">

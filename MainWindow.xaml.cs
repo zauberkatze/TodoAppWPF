@@ -81,6 +81,27 @@ namespace TodoAppWPF
             }
         }
 
+        private void ListeLöschenButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (ListenAuswahl.SelectedItem is TodoListe selected)
+            {
+                var result = MessageBox.Show($"Liste '{selected.Name}' wirklich löschen?",
+                    "Liste löschen", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    service.ListeLöschen(selected);
+                    isDirty = true;
+                    AktualisiereListen();
+                    AktualisiereTodos();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Bitte zuerst eine Liste auswählen.", "Liste löschen", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+        }
+
         private void ListBoxItem_PreviewMouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             if (e.OriginalSource is System.Windows.Controls.CheckBox)

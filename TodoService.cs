@@ -67,4 +67,18 @@ class TodoService
             }
         }
     }
+
+    public void ListeLöschen(TodoListe liste)
+    {
+        if (liste == null) return;
+        if (listen.Contains(liste))
+        {
+            listen.Remove(liste);
+            if (aktiveListe == liste)
+            {
+                aktiveListe = null;
+            }
+            Speichern();
+        }
+    }
 }
