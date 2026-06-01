@@ -11,8 +11,10 @@
         MinWidth="620">
 
     <Window.Resources>
-        <Style x:Key="TodoListBoxItemStyle" TargetType="ListBoxItem">
-            <EventSetter Event="PreviewMouseLeftButtonUp" Handler="ListBoxItem_PreviewMouseLeftButtonUp"/>
+        <Style x:Key="TodoListBoxItemStyle"
+               TargetType="ListBoxItem">
+            <EventSetter Event="PreviewMouseLeftButtonUp"
+                         Handler="ListBoxItem_PreviewMouseLeftButtonUp"/>
         </Style>
     </Window.Resources>
 
@@ -29,11 +31,13 @@
         <!-- Titel -->
         <TextBlock Grid.Row="0"
                    Text="Meine To-Do Listen"
-                   Style="{StaticResource MaterialDesignHeadline4TextBlock}"
-                   Margin="0,0,0,20"/>
+                   Style="{StaticResource MaterialDesignHeadline3TextBlock}"
+                   Foreground="{DynamicResource PrimaryHueMidBrush}"
+                   Margin="0,0,0,24"/>
 
         <!-- Neue Liste erstellen -->
-        <Grid Grid.Row="1" Margin="0,0,0,10">
+        <Grid Grid.Row="1"
+              Margin="0,0,0,10">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
@@ -49,14 +53,17 @@
                     Style="{StaticResource MaterialDesignRaisedButton}"
                     Click="NeueListeButton_Click">
                 <StackPanel Orientation="Horizontal">
-                    <materialDesign:PackIcon Kind="Plus" VerticalAlignment="Center" Margin="0,0,6,0"/>
+                    <materialDesign:PackIcon Kind="Plus"
+                                             VerticalAlignment="Center"
+                                             Margin="0,0,6,0"/>
                     <TextBlock Text="Neue Liste"/>
                 </StackPanel>
             </Button>
         </Grid>
 
         <!-- Listen Auswahl -->
-        <Grid Grid.Row="2" Margin="0,0,0,20">
+        <Grid Grid.Row="2"
+              Margin="0,0,0,20">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
@@ -72,20 +79,19 @@
             <Button Grid.Column="1"
                     Margin="10,0,0,0"
                     Style="{StaticResource MaterialDesignRaisedButton}"
-                    Foreground="White"
-                    materialDesign:ButtonAssist.CornerRadius="4"
-                    Background="{DynamicResource MaterialDesignValidationErrorBrush}"
-                    BorderBrush="{DynamicResource MaterialDesignValidationErrorBrush}"
                     Click="ListeLöschenButton_Click">
                 <StackPanel Orientation="Horizontal">
-                    <materialDesign:PackIcon Kind="Delete" VerticalAlignment="Center" Margin="0,0,6,0"/>
+                    <materialDesign:PackIcon Kind="Delete"
+                                             VerticalAlignment="Center"
+                                             Margin="0,0,6,0"/>
                     <TextBlock Text="Liste löschen"/>
                 </StackPanel>
             </Button>
         </Grid>
 
         <!-- Eingabe -->
-        <Grid Grid.Row="3" Margin="0,0,0,10">
+        <Grid Grid.Row="3"
+              Margin="0,0,0,10">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
@@ -102,7 +108,9 @@
                     Style="{StaticResource MaterialDesignRaisedButton}"
                     Click="HinzufügenButton_Click">
                 <StackPanel Orientation="Horizontal">
-                    <materialDesign:PackIcon Kind="PlusCircle" VerticalAlignment="Center" Margin="0,0,6,0"/>
+                    <materialDesign:PackIcon Kind="PlusCircle"
+                                             VerticalAlignment="Center"
+                                             Margin="0,0,6,0"/>
                     <TextBlock Text="Hinzufügen"/>
                 </StackPanel>
             </Button>
@@ -113,7 +121,9 @@
                  Grid.Row="4"
                  Style="{StaticResource MaterialDesignListBox}"
                  ItemContainerStyle="{StaticResource TodoListBoxItemStyle}"
-                 ItemTemplate="{StaticResource TodoItemTemplate}"/>
+                 ItemTemplate="{StaticResource TodoItemTemplate}"
+                 Background="Transparent"
+                 BorderThickness="0"/>
 
         <!-- Buttons unten -->
         <StackPanel Grid.Row="5"
@@ -125,19 +135,19 @@
                     Margin="0,0,10,0"
                     Click="SpeichernButton_Click">
                 <StackPanel Orientation="Horizontal">
-                    <materialDesign:PackIcon Kind="ContentSave" VerticalAlignment="Center" Margin="0,0,6,0"/>
+                    <materialDesign:PackIcon Kind="ContentSave"
+                                             VerticalAlignment="Center"
+                                             Margin="0,0,6,0"/>
                     <TextBlock Text="Speichern"/>
                 </StackPanel>
             </Button>
 
             <Button Style="{StaticResource MaterialDesignRaisedButton}"
-                    Foreground="White"
-                    materialDesign:ButtonAssist.CornerRadius="4"
-                    Background="{DynamicResource MaterialDesignValidationErrorBrush}"
-                    BorderBrush="{DynamicResource MaterialDesignValidationErrorBrush}"
                     Click="LöschenButton_Click">
                 <StackPanel Orientation="Horizontal">
-                    <materialDesign:PackIcon Kind="Delete" VerticalAlignment="Center" Margin="0,0,6,0"/>
+                    <materialDesign:PackIcon Kind="Delete"
+                                             VerticalAlignment="Center"
+                                             Margin="0,0,6,0"/>
                     <TextBlock Text="Löschen"/>
                 </StackPanel>
             </Button>
