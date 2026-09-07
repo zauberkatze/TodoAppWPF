@@ -60,10 +60,17 @@ namespace TodoAppWPF
                 return;
             }
 
-            service.HinzuFügen(titel);
-            EingabeBox.Clear();
-            isDirty = true;
-            AktualisiereTodos();
+            try
+            {
+                service.HinzuFügen(titel);
+                EingabeBox.Clear();
+                isDirty = true;
+                AktualisiereTodos();
+            }
+            catch (System.Exception ex)
+            {
+                MessageBox.Show($"Fehler beim Hinzufügen:\n{ex}", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void AktualisiereListen()

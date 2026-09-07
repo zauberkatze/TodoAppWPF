@@ -39,6 +39,11 @@ class TodoService
         {
             string json = File.ReadAllText(DefaultDateipfad);
             listen = JsonConvert.DeserializeObject<List<TodoListe>>(json)!;
+            // Ensure Todos lists are initialized after deserialization
+            foreach (var l in listen)
+            {
+                if (l.Todos == null) l.Todos = new List<Todo>();
+            }
         }
     }
 
@@ -50,21 +55,26 @@ class TodoService
 
     public void HinzuFügen(string titel)
     {
-        if (aktiveListe == null) return;
-        int id = aktiveListe.Todos.Count + 1;
-        aktiveListe.Todos.Add(new Todo(id, titel));
+        try
+        {
+            if (aktiveListe == null) throw new InvalidOperationException("Keine aktive Liste zum Hinzufügen ausgewählt.");
+            if (aktiveListe.Todos == null) aktiveListe.Todos = new List<Todo>();
+            int id = aktiveListe.Todos.Count + 1;
+            aktiveListe.Todos.Add(new Todo(id, titel));
+        }
+        catch (Exception ex)
+        {
+            Logger.Log("Fehler in TodoService.HinzuFügen: " + ex.ToString());
+            throw;
+        }
     }
 
     public void Löschen(int id)
     {
         if (aktiveListe == null) return;
-        foreach (Todo todo in aktiveListe.Todos)
+        if (aktiveListe.Todos != null)
         {
-            if (todo.Id == id)
-            {
-                aktiveListe.Todos.Remove(todo);
-                return;
-            }
+            aktiveListe.Todos.RemoveAll(t => t.Id == id);
         }
     }
 

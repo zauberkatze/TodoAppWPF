@@ -9,8 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MaterialDesignColors" Version="5.3.2" />
-    <PackageReference Include="MaterialDesignThemes" Version="5.3.2" />
+    <!-- MaterialDesign packages removed to disable integration -->
     <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
   </ItemGroup>
 
